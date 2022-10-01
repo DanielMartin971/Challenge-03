@@ -15,9 +15,11 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   function generatePassword(){
-    var random = Math.floor(Math.random() * 7);
+    var random     = Math.floor(Math.random() * 7);
+    var random2    = Math.floor(Math.random() * 4);
+    var letters    = 'abcdefghijklmnopqrstuvwxyz';
     var randomPass = '';
-
+    
     criteria.length = JSON.parse(document.getElementById('length').value);
 
     if(document.getElementById('special').checked){
@@ -30,12 +32,10 @@ function writePassword() {
       console.log('The lowers are true')
     }
 
-
     if(document.getElementById('upper').checked){
       criteria.upper = true;
       console.log('The uppers are true')
     }
-
 
     if(document.getElementById('numeric').checked){
       criteria.numeric = true;
@@ -44,7 +44,8 @@ function writePassword() {
 
 
     for(var i = 0; i <= criteria.length; i++){
-      if(criteria.special == true){
+      if(criteria.special == true
+        && random2 == 0){
         if(random == 0){
           randomPass += '!';
         }
@@ -69,15 +70,20 @@ function writePassword() {
 
         random = Math.floor(Math.random() * 7);
       }
-      else if(criteria.lower == true){
-
+      else if(criteria.lower == true
+        && random2 == 1){
+        randomPass += letters.charAt(Math.floor(Math.random() * letters.length));
       }
-      else if(criteria.upper == true){
-
+      else if(criteria.upper == true
+        && random2 == 2){
+        randomPass += letters.charAt(Math.floor(Math.random() * letters.length)).toUpperCase();
       }
-      else if(criteria.numeric == true){
-
+      else if(criteria.numeric == true
+        && random2 == 3){
+        randomPass += Math.floor(Math.random() * 10);
       }
+
+      random2 = Math.floor(Math.random() * 4);
 
     }
 
@@ -86,7 +92,7 @@ function writePassword() {
       && criteria.numeric == false
       && criteria.special == false
       || criteria.length <= 0){
-        generateBtn.textContent = "Choose a length and select atleast 1 criteria"
+        return randomPass = "Choose a length and select atleast 1 criteria"
     }
     else{
       return randomPass; 
