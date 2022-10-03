@@ -3,10 +3,6 @@ var generateBtn = document.querySelector("#generate");
 
 var criteria = {
   length: 0,
-  lower: false,
-  upper: false,
-  numeric: false,
-  special: false
 };
 
 // Write password to the #password input
@@ -15,94 +11,54 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   function generatePassword(){
-    var random     = Math.floor(Math.random() * 7);
-    var random2    = Math.floor(Math.random() * 4);
+    var allTog     = ''
+    var ranSpec    = '!#$%^&*';
+    var numbers    = '0123456789'
+    var random     = Math.floor(Math.random() * allTog.length);
     var letters    = 'abcdefghijklmnopqrstuvwxyz';
     var randomPass = '';
-    
-    criteria.length = JSON.parse(document.getElementById('length').value);
+
+    if(criteria.length <= 0){
+      return randomPass = "Choose a length and select atleast 1 criteria"
+    }
+    else{
+      criteria.length = JSON.parse(document.getElementById('length').value);
+    }
 
     if(document.getElementById('special').checked){
-      criteria.special = true;
-      console.log('The specials are true');
+      allTog += ranSpec;
     }
 
     if(document.getElementById('lower').checked){
-      criteria.lower = true;
-      console.log('The lowers are true')
+      allTog += letters;
     }
 
     if(document.getElementById('upper').checked){
-      criteria.upper = true;
-      console.log('The uppers are true')
+      allTog += letters.toUpperCase();
     }
 
     if(document.getElementById('numeric').checked){
-      criteria.numeric = true;
-      console.log('The numerics are true')
+      allTog += numbers;
     }
 
+    random = Math.floor(Math.random() * allTog.length);
+    console.log(allTog);
 
-    for(var i = 0; i <= criteria.length; i++){
-      if(criteria.special == true
-        && random2 == 0){
-        if(random == 0){
-          randomPass += '!';
-        }
-        else if(random == 1){
-          randomPass += '#';
-        }
-        else if(random == 2){
-          randomPass += '$';
-        }
-        else if(random == 3){
-          randomPass += '%';
-        }
-        else if(random == 4){
-          randomPass += '^';
-        }
-        else if(random == 5){
-          randomPass += '&';
-        }
-        else if(random == 6){
-          randomPass += '*';
-        }
 
-        random = Math.floor(Math.random() * 7);
-      }
-      else if(criteria.lower == true
-        && random2 == 1){
-        randomPass += letters.charAt(Math.floor(Math.random() * letters.length));
-      }
-      else if(criteria.upper == true
-        && random2 == 2){
-        randomPass += letters.charAt(Math.floor(Math.random() * letters.length)).toUpperCase();
-      }
-      else if(criteria.numeric == true
-        && random2 == 3){
-        randomPass += Math.floor(Math.random() * 10);
-      }
+    for(let i = 0; i < criteria.length; i++){
+      randomPass += allTog.charAt(random)
 
-      random2 = Math.floor(Math.random() * 4);
-
+      random = Math.floor(Math.random() * allTog.length);
     }
 
-    if(criteria.lower == false
-      && criteria.upper == false
-      && criteria.numeric == false
-      && criteria.special == false
-      || criteria.length <= 0){
-        return randomPass = "Choose a length and select atleast 1 criteria"
-    }
-    else{
-      return randomPass; 
-    }
+    return randomPass; 
 
   }
 
   console.log('Getting password');
 
   passwordText.value = password;
+  console.log(password.length);
 
 }
 
