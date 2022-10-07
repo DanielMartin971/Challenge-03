@@ -18,12 +18,7 @@ function writePassword() {
     var letters    = 'abcdefghijklmnopqrstuvwxyz';
     var randomPass = '';
 
-    if(criteria.length <= 0){
-      return randomPass = "Choose a length and select atleast 1 criteria"
-    }
-    else{
       criteria.length = JSON.parse(document.getElementById('length').value);
-    }
 
     if(document.getElementById('special').checked){
       allTog += ranSpec;
