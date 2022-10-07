@@ -18,7 +18,7 @@ function writePassword() {
     var letters    = 'abcdefghijklmnopqrstuvwxyz';
     var randomPass = '';
 
-      criteria.length = JSON.parse(document.getElementById('length').value);
+    criteria.length = JSON.parse(document.getElementById('length').value);
 
     if(document.getElementById('special').checked){
       allTog += ranSpec;
